@@ -2,6 +2,7 @@ package ui;
 
 import java.util.Random;
 
+import org.openqa.selenium.*;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriver;
@@ -44,7 +45,8 @@ public class LoginTest {
 	 * driver.findElement(By.id("password")).sendKeys("secret_sauce");
 	 * driver.findElement(By.xpath("//input[@id='login-button']")).click();
 	 */
-
+	
+	// Login process
 	By usernameLocator = RelativeLocator.with(By.tagName("input")).above(By.id("password"));
 	driver.findElement(usernameLocator).sendKeys("standard_user");
 	By passwordLocator = RelativeLocator.with(By.tagName("input")).below(By.id("user-name"));
@@ -56,7 +58,8 @@ public class LoginTest {
 	test.verifyHomepageTitle();
 
 	System.out.println(driver.getCurrentUrl());
-	// driver.findElement(By.className("inventory_list"));
+	
+	// not used yet
 	/*
 	 * try { WebElement element =
 	 * driver.findElement(By.className("inventory_list"));
@@ -64,41 +67,55 @@ public class LoginTest {
 	 * List<WebElement> elements = element.findElements(By.tagName("div")); for
 	 * (WebElement e : elements) { System.out.println(e.getText() + "\n"); }
 	 */
-	int a = test.getRandomNumber(1, 6);
-	System.out.println("Atrikel Nummer: " + a);
-	List<WebElement> product = driver.findElements(By.className("inventory_item"));
-	// System.out.println("ATTRIBUT: " +
-	// driver.findElement(By.id("item_4_title_link")).getAttribute("item_4_title_link"));
-	// System.out.println("ATTRIBUT: " +  driver.findElement(By.xpath("//*[@id=\"item_4_title_link\"]")).getAttribute("id"));
-	/* WebElement randomArticle = */
-	driver.findElement(By.id("item_" + a + "_title_link"));
 
+	// not used yet
+	//List<WebElement> product = driver.findElements(By.className("inventory_item"));
+
+	// not used yet
+	//String randomArticle = driver.findElement(By.xpath("//*[@id=\"item_" + a + "_title_link\"]")).getAttribute("id");
+	
+	// random articles (1-5) are stored in elementArticle
+	
+	int a = test.getRandomNumber(1, 6);
+	WebElement elementArticle = driver.findElement(By.id("item_" + a + "_title_link"));
+	
+	switch (a) {
+	case 0:
+	    String tmpMemory0 = "Sauce Labs Bike Light";
+	    elementArticle.getText().equals(tmpMemory0);
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 1:
+	    String tmpMemory1 = "Sauce Labs Bolt T-Shirt";
+	    elementArticle.getText().equals(tmpMemory1);
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 2:
+	    String tmpMemory2 = "Sauce Labs Onesie";
+	    elementArticle.getText().equals(tmpMemory2);
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 3:
+	    String tmpMemory3 = "Test.allTheThings() T-Shirt (Red)";
+	    elementArticle.getText().equals(tmpMemory3);
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 4:
+	    String tmpMemory4 = "Sauce Labs Backpack";
+	    elementArticle.getText().equals(tmpMemory4);
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 5:
+	    String tmpMemory5 = "Sauce Labs Fleece Jacket";
+	    elementArticle.getText().equals(tmpMemory5);
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	}
+	
 	// By cartButtonLocator = RelativeLocator.with(By.id("item_" + a + "_title_link")).below(By.xpath("\'Add to cart\'"));
 	// System.out.println("cartButtonLocator: " + cartButtonLocator);
 	// driver.findElement(cartButtonLocator).click();
-
-	System.out.println(driver.findElement(By.id("item_" + a + "_title_link")));
-
-	switch (a) {
-	case 0:
-	    System.out.println(driver.findElement(By.className("inventory_item_name")));
-	    break;
-	case 1:
-	    System.out.println(driver.findElement(By.className("inventory_item_name")));
-	    break;
-	case 2:
-	    System.out.println(driver.findElement(By.className("inventory_item_name")));
-	    break;
-	case 3:
-	    System.out.println(driver.findElement(By.className("inventory_item_name")));
-	    break;
-	case 4:
-	    System.out.println(driver.findElement(By.className("inventory_item_name")));
-	    break;
-	case 5:
-	    System.out.println(driver.findElement(By.className("inventory_item_name")));
-	    break;
-	}
+	
 	// System.out.println("ATTRIBUT2: " +
 	// driver.findElement(By.className("item_4_title_link")));
 
