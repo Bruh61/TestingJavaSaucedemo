@@ -2,7 +2,6 @@ package ui;
 
 import java.util.Random;
 
-import org.openqa.selenium.*;
 import org.openqa.selenium.By;
 
 import org.openqa.selenium.WebDriver;
@@ -13,9 +12,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.locators.RelativeLocator;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import io.opentelemetry.exporter.logging.SystemOutLogRecordExporter;
-
-import java.util.List;
 
 public class LoginTest {
 
@@ -45,7 +41,7 @@ public class LoginTest {
 	 * driver.findElement(By.id("password")).sendKeys("secret_sauce");
 	 * driver.findElement(By.xpath("//input[@id='login-button']")).click();
 	 */
-	
+
 	// Login process
 	By usernameLocator = RelativeLocator.with(By.tagName("input")).above(By.id("password"));
 	driver.findElement(usernameLocator).sendKeys("standard_user");
@@ -58,7 +54,7 @@ public class LoginTest {
 	test.verifyHomepageTitle();
 
 	System.out.println(driver.getCurrentUrl());
-	
+
 	// not used yet
 	/*
 	 * try { WebElement element =
@@ -69,79 +65,39 @@ public class LoginTest {
 	 */
 
 	// not used yet
-	//List<WebElement> product = driver.findElements(By.className("inventory_item"));
+	// List<WebElement> product =
+	// driver.findElements(By.className("inventory_item"));
 
 	// not used yet
-	//String randomArticle = driver.findElement(By.xpath("//*[@id=\"item_" + a + "_title_link\"]")).getAttribute("id");
-	
+	// String randomArticle = driver.findElement(By.xpath("//*[@id=\"item_" + a +
+	// "_title_link\"]")).getAttribute("id");
+
 	// random articles (1-5) are stored in elementArticle
-	
-	int a = test.getRandomNumber(1, 6);
+
+	int a = test.getRandomNumber(0, 5);
 	WebElement elementArticle = driver.findElement(By.id("item_" + a + "_title_link"));
-	
-	switch (a) {
-	case 0:
-	    String tmpMemory0 = "Sauce Labs Bike Light";
-	    elementArticle.getText().equals(tmpMemory0);
-	    System.out.println("Getestet wurde: " + elementArticle.getText());
-	    break;
-	case 1:
-	    String tmpMemory1 = "Sauce Labs Bolt T-Shirt";
-	    elementArticle.getText().equals(tmpMemory1);
-	    System.out.println("Getestet wurde: " + elementArticle.getText());
-	    break;
-	case 2:
-	    String tmpMemory2 = "Sauce Labs Onesie";
-	    elementArticle.getText().equals(tmpMemory2);
-	    System.out.println("Getestet wurde: " + elementArticle.getText());
-	    break;
-	case 3:
-	    String tmpMemory3 = "Test.allTheThings() T-Shirt (Red)";
-	    elementArticle.getText().equals(tmpMemory3);
-	    System.out.println("Getestet wurde: " + elementArticle.getText());
-	    break;
-	case 4:
-	    String tmpMemory4 = "Sauce Labs Backpack";
-	    elementArticle.getText().equals(tmpMemory4);
-	    System.out.println("Getestet wurde: " + elementArticle.getText());
-	    break;
-	case 5:
-	    String tmpMemory5 = "Sauce Labs Fleece Jacket";
-	    elementArticle.getText().equals(tmpMemory5);
-	    System.out.println("Getestet wurde: " + elementArticle.getText());
-	    break;
-	}
-	
-	// By cartButtonLocator = RelativeLocator.with(By.id("item_" + a + "_title_link")).below(By.xpath("\'Add to cart\'"));
-	// System.out.println("cartButtonLocator: " + cartButtonLocator);
-	// driver.findElement(cartButtonLocator).click();
-	
-	// System.out.println("ATTRIBUT2: " +
-	// driver.findElement(By.className("item_4_title_link")));
 
-	/*
-	 * System.out.println("Produktmenge" + " " + product.size()); for (WebElement
-	 * products : product) { //System.out.println("Produktinfo:"+ " " +
-	 * products.getText()); }
-	 */
+	test.checkArticle(a, elementArticle);
 
-	// WebElement myArticleList =
-	// driver.findElement(By.className("inventory_list"));
-	// driver.findElement(By.cssSelector("#add-to-cart-sauce-labs-backpack")).click();
+	driver.findElement(By.cssSelector(".shopping_cart_link")).click();
+	driver.findElement(By.cssSelector("#checkout")).click();
+	
+	test.addPersonalInformation();
+	test.checkCartOverview();
 
+	driver.findElement(By.cssSelector("#finish")).click();
+	
+	test.checkFinishedOverview();
+	
 	// pause for miliseconds
-	try {
+	/*try {
 	    Thread.sleep(2000);
 	} catch (InterruptedException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
-	}
+	}*/
 
-	// driver.findElement(By.cssSelector(".shopping_cart_link")).click();
-
-	// }finally {
 	driver.close();
-	// }
     }
 
     public void verifyHomepageTitle() {
@@ -155,5 +111,74 @@ public class LoginTest {
     public int getRandomNumber(int min, int max) {
 	Random random = new Random();
 	return random.ints(min, max).findFirst().getAsInt();
+    }
+
+    public int checkArticle(int a, WebElement elementArticle) {
+	switch (a) {
+	case 0:
+	    String tmpMemory0 = "Sauce Labs Bike Light";
+	    elementArticle.getText().equals(tmpMemory0);
+	    driver.findElement(By.name("add-to-cart-sauce-labs-bike-light")).click();
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 1:
+	    String tmpMemory1 = "Sauce Labs Bolt T-Shirt";
+	    elementArticle.getText().equals(tmpMemory1);
+	    driver.findElement(By.name("add-to-cart-sauce-labs-bolt-t-shirt")).click();
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 2:
+	    String tmpMemory2 = "Sauce Labs Onesie";
+	    elementArticle.getText().equals(tmpMemory2);
+	    driver.findElement(By.name("add-to-cart-sauce-labs-onesie")).click();
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 3:
+	    String tmpMemory3 = "Test.allTheThings() T-Shirt (Red)";
+	    elementArticle.getText().equals(tmpMemory3);
+	    driver.findElement(By.name("add-to-cart-test.allthethings()-t-shirt-(red)")).click();
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 4:
+	    String tmpMemory4 = "Sauce Labs Backpack";
+	    elementArticle.getText().equals(tmpMemory4);
+	    driver.findElement(By.name("add-to-cart-sauce-labs-backpack")).click();
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	case 5:
+	    String tmpMemory5 = "Sauce Labs Fleece Jacket";
+	    elementArticle.getText().equals(tmpMemory5);
+	    driver.findElement(By.name("add-to-cart-sauce-labs-fleece-jacket")).click();
+	    System.out.println("Getestet wurde: " + elementArticle.getText());
+	    break;
+	}
+	return a;
+    }
+
+    public void addPersonalInformation() {
+	driver.findElement(By.cssSelector("#first-name")).sendKeys("Max");
+	driver.findElement(By.cssSelector("#last-name")).sendKeys("Mustermann");
+	driver.findElement(By.cssSelector("#postal-code")).sendKeys("89988 Berlin/Hambugerstr. 150");
+	driver.findElement(By.cssSelector("#continue")).click();
+    }
+    public void checkCartOverview() {
+	String Inhalt = driver.findElement(By.className("summary_info")).getText();
+	Inhalt.contains("Payment Information");
+	Inhalt.contains("SauceCard");
+	Inhalt.contains("Shipping Information");
+	Inhalt.contains("Free Pony Express Delivery!");
+	Inhalt.contains("Price Total");
+	Inhalt.contains("Item total:");
+	Inhalt.contains("Tax:");
+	Inhalt.contains("Total:");
+	Inhalt.contains("Cancel");
+	Inhalt.contains("Finish");
+    }
+    public void checkFinishedOverview() {
+	String Inhalt = driver.findElement(By.cssSelector("#checkout_complete_container")).getText();
+	Inhalt.contains("Thank you for your order!");
+	Inhalt.contains("Your order has been dispatched, and will arrive just as fast as the pony can get there!");
+	Inhalt.contains("Back Home");
+	driver.findElement(By.cssSelector("#back-to-products")).click();
     }
 }
