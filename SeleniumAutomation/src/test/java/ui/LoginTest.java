@@ -35,6 +35,7 @@ public class LoginTest {
 	driver.get("https://www.saucedemo.com/");
 	driver.manage().window().maximize();
 
+
 	System.out.println(driver.getCurrentUrl());
 
 	/*
@@ -71,8 +72,8 @@ public class LoginTest {
 	// driver.findElements(By.className("inventory_item"));
 
 	// not used yet
-	// String randomArticle = driver.findElement(By.xpath("//*[@id=\"item_" + a +
-	// "_title_link\"]")).getAttribute("id");
+	String randomArticle = driver.findElement(By.xpath("//*[@id=\"item_1_title_link\"]")).getAttribute("id");
+	System.out.println(randomArticle);
 
 	// random articles (1-5) are stored in elementArticle
 
