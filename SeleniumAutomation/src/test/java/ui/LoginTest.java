@@ -20,6 +20,7 @@ public class LoginTest {
 
     public static void main(String[] args) {
 
+	//driver use
 	if (browser.equals("FireFox")) {
 	    WebDriverManager.firefoxdriver().setup();
 	    driver = new FirefoxDriver();
@@ -50,6 +51,7 @@ public class LoginTest {
 	By submitLocator = RelativeLocator.with(By.tagName("input")).below(By.id("password"));
 	driver.findElement(submitLocator).click();
 
+	
 	LoginTest test = new LoginTest();
 	test.verifyHomepageTitle();
 
